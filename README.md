@@ -9,3 +9,6 @@ PicoQuant GmbH disclaims all warranties with regard to this software including a
 
 ## Support
 PicoQuant will not provide any support for this software. All support request shall be made directly to the author via github issues.
+
+## License
+[MIT License](http://opensource.org/licenses/MIT) - see the [LICENSE]
