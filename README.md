@@ -7,6 +7,7 @@ Major contributors to the software ( in order of amount of contributions made)
 - [Dr. Ingo Grgor](https://www.uni-goettingen.de/de/dr.+ingo+gregor/513986.html)
 - Sumeet Rohilla
 
+Download an exemplary raw dataset from this link: [Triple Labelled Cell sample](https://www.picoquant.com/dl_software/sFLIM/sFLIM_data.zip)
 ## Disclaimer
 
 PicoQuant GmbH disclaims all warranties with regard to this software including all implied warranties of merchantability and fitness. In no case shall PicoQuant GmbH be liable for any direct, indirect or consequential damages or any material or immaterial damages whatsoever resulting from loss of data, time or profits; arising from use, inability to use, or performance of this software and associated documentation.
