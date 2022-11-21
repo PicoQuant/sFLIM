@@ -1594,7 +1594,7 @@ if numel(index_selected) >= 1
         sizeres = size(res);
         sizeres1 = sizeres(1);
         rest = (tx * ty) - sizeres1;
-        ERG = zeros (rest,2);
+        ERG = zeros (rest,num_pat);
         res = cat(1,res,ERG); 
         
         res = reshape(res,tx,ty,num_pat);
