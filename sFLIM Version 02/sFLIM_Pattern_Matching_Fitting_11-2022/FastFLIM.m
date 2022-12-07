@@ -169,18 +169,28 @@ for pulse = 1:num_PIE
     S3 = subplot('Position', [p2 p1 w w]);
 
     s   = squeeze(sum(sum(W,2),1));
-    lam = (lam_start+lam_step.*(-1:numel(s)));
+    
+    %lam = (lam_start+lam_step.*(-1:numel(s)));
+    lam = (lam_start+lam_step.*(0:(numel(s)-1)));
+     
+     disp(lam_step);
     ts  = clam_min:clam_max;
-    if max(s)>0
-        s = [0; s(:); 0]./max(s);
-        cs  = interp1(lam, s, ts,'cubic');
-        cs(ts<lam_start-lam_step) = 0;
-        cs(ts>lam_start+lam_step.*nch) = 0;
+    if max(s)>0 
+        %s = [0; s(:); 0]./max(s);
+        s = [s(:)]./max(s);
+        %cs  = interp1(lam, s, ts,'cubic');
+        %cs(ts<lam_start-lam_step) = 0;
+        %cs(ts>lam_start+lam_step.*nch) = 0;
     else
         cs = zeros(size(ts));
     end
    
-    plot(ts, cs, '-','Color',[1 0 0]);
+    %plot(ts, cs, '-','Color',[1 0 0]);
+     
+    disp(s);
+    disp(lam);
+   
+    plot(lam, s,'b--o');
 
     set(S3,'FontSize',9,'color', [204 204 204]./255);
 
