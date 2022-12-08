@@ -102,12 +102,12 @@ for pulse = 1:num_PIE
     ylabel('y (µm)','FontWeight','bold','FontSize',10,'FontAngle','italic');
 
 
-    %tst = 2 + round(((lims(1):.5:lims(2))-lims(1))./(lims(2)-lims(1)).*(size(spectrum,1)-3));
-    %n= 1;
-    %for ttst = lims(1):0.5:lims(2)
-    %    stst(n) = cellstr(sprintf('%4.1f',ttst));
-    %    n = n+1;
-    %end
+    tst = 2 + round(((lims(1):.5:lims(2))-lims(1))./(lims(2)-lims(1)).*(size(spectrum,1)-3));
+    n= 1;
+    for ttst = lims(1):0.5:lims(2)
+        stst(n) = cellstr(sprintf('%4.1f',ttst));
+        n = n+1;
+    end
     cca = colorbar;
     cca.Label.String = 'lifetime / ns';
     %colorbar('CLim', lims, 'YTickMode','manual','XColor',[0 0 0],'YColor',[0 0 0],'Box','off','YTick', tst, ...
@@ -157,9 +157,9 @@ for pulse = 1:num_PIE
     xlabel('x (µm)','FontWeight','bold','FontSize',10,'FontAngle','italic');
     ylabel('y (µm)','FontWeight','bold','FontSize',10,'FontAngle','italic');
 
-    %tst = 2 + round(((440:40:680)-lims(1))./(lims(2)-lims(1)).*(size(spectrum,1)-3));
+    tst = 2 + round(((440:40:680)-lims(1))./(lims(2)-lims(1)).*(size(spectrum,1)-3));
     ccb = colorbar;
-    ccb.Label.String = 'wavelength / nm';
+    ccb.Label.String = 'wavelengths / nm';
     %colorbar('CLim', lims, 'XColor',[0 0 0],'YColor',[0 0 0],'Box','off','YTick', tst, ...
     %    'FontSize',9, 'YTickLabel',{'440', '480', '520', '560', '600', '640', '680'},'TickDir','out');
 
@@ -169,18 +169,28 @@ for pulse = 1:num_PIE
     S3 = subplot('Position', [p2 p1 w w]);
 
     s   = squeeze(sum(sum(W,2),1));
-    lam = (lam_start+lam_step.*(-1:numel(s)));
+    
+    %lam = (lam_start+lam_step.*(-1:numel(s)));
+    lam = (lam_start+lam_step.*(0:(numel(s)-1)));
+     
+     %disp(lam_step);
     ts  = clam_min:clam_max;
-    if max(s)>0
-        s = [0; s(:); 0]./max(s);
-        cs  = interp1(lam, s, ts,'cubic');
-        cs(ts<lam_start-lam_step) = 0;
-        cs(ts>lam_start+lam_step.*nch) = 0;
+    if max(s)>0 
+        %s = [0; s(:); 0]./max(s);
+        s = [s(:)]./max(s);
+        %cs  = interp1(lam, s, ts,'cubic');
+        %cs(ts<lam_start-lam_step) = 0;
+        %cs(ts>lam_start+lam_step.*nch) = 0;
     else
         cs = zeros(size(ts));
     end
    
-    plot(ts, cs, '-','Color',[1 0 0]);
+    %plot(ts, cs, '-','Color',[1 0 0]);
+     
+    %disp(s);
+    %disp(lam);
+   
+    plot(lam, s,'b--o');
 
     set(S3,'FontSize',9,'color', [204 204 204]./255);
 

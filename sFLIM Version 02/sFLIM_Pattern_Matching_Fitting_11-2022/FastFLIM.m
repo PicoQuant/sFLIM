@@ -173,7 +173,7 @@ for pulse = 1:num_PIE
     %lam = (lam_start+lam_step.*(-1:numel(s)));
     lam = (lam_start+lam_step.*(0:(numel(s)-1)));
      
-     disp(lam_step);
+     %disp(lam_step);
     ts  = clam_min:clam_max;
     if max(s)>0 
         %s = [0; s(:); 0]./max(s);
@@ -187,8 +187,8 @@ for pulse = 1:num_PIE
    
     %plot(ts, cs, '-','Color',[1 0 0]);
      
-    disp(s);
-    disp(lam);
+    %disp(s);
+    %disp(lam);
    
     plot(lam, s,'b--o');
 
