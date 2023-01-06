@@ -2,7 +2,7 @@ clear variables;
 clc;
 
 load('List.mat');
-[filename, pathname] = uigetfile({'*results*','Results File (*results.mat)'}, 'Pick a Results file');
+[filename, pathname] = uigetfile({'*results.mat','Results File (*results.mat)'}, 'Pick a Results file');
 A = load([pathname filename]);
 %%
 num_pattern  = size(A.results.amp,3) - 1;
@@ -22,7 +22,7 @@ end
 
 %% Composite Image with tools vary
 
-im = MakeComposite('data',A.results.amp(:,:,1:num_pattern));
+im = PlotMakeComposite('data',A.results.amp(:,:,1:num_pattern),'list',list{1:num_pattern});
 name = sprintf('Composite Image');
 figure_handle = figure;
 set(figure_handle,'Name',name,'NumberTitle','off');
@@ -35,6 +35,3 @@ set(gca,'DataAspectRatio', [1,1,1],'PlotBoxAspectRatio',[1 1 1],'XDir','normal',
 xlabel('x (µm)','FontWeight','bold','FontSize',10,'FontAngle','italic');
 ylabel('y (µm)','FontWeight','bold','FontSize',10,'FontAngle','italic');
 hold off
-
-
-

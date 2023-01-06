@@ -22,7 +22,7 @@ end
 
 %% Composite Image with tools vary
 
-im = MakeComposite('data',A.results.amp(:,:,1:num_pattern),'list',list{1:num_pattern});
+im = PlotMakeComposite('data',A.results.amp(:,:,1:num_pattern),'list',list{1:num_pattern});
 name = sprintf('Composite Image');
 figure_handle = figure;
 set(figure_handle,'Name',name,'NumberTitle','off');
