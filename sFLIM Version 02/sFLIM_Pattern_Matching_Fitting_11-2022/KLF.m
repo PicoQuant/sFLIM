@@ -144,6 +144,7 @@ K = A;           % Pattern Data
 MNW = maxNumCompThreads; %MNW: maximum number of workers (cores) on the PC
 %disp(MNW);
 Num_workers = MNW;
+numpix = (size(Y,1));
 nx = sqrt(size(Y,1));
 ny = nx;
 X = [];
@@ -155,6 +156,8 @@ N_iter = [];
 Time = [];
 Conv_size = [];
 split = (nx*ny)/Num_workers;
+split = floor(numpix/Num_workers);
+rest = numpix-split * Num_workers;
 
 spmd(Num_workers) % Single Program Multiple Data
     
@@ -236,8 +239,7 @@ spmd(Num_workers) % Single Program Multiple Data
         %[x_out,llh_out,n_iter,conv,t] = Momentum_convergence(I,K,update_rate);
         
         otherwise 
-            
-        I=Y((labindex-1)*split+1:labindex*split,:);
+        I=Y((labindex-1)*split+1:labindex*split+rest,:);
         [x_out,llh_out,n_iter,conv,t] = Momentum_convergence(I,K,update_rate);
         
     end
