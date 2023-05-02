@@ -6,7 +6,7 @@ This software has been developed in the scope of a PhD dissertation of Sumeet Ro
 Major contributors to the software ( in order of amount of contributions made)
 - [Dr. Ingo Gregor](https://www.uni-goettingen.de/de/dr.+ingo+gregor/513986.html)
 - Sumeet Rohilla
-- Benedikt Krämer
+- [Benedikt Krämer](kraemer@picoquant.com)
 - Wietske Postma
 - Gregor Weiss
 - Nikolaus Naredi-Rainer
