@@ -6,12 +6,15 @@ This software has been developed in the scope of a PhD dissertation of Sumeet Ro
 Major contributors to the software ( in order of amount of contributions made)
 - [Dr. Ingo Gregor](https://www.uni-goettingen.de/de/dr.+ingo+gregor/513986.html)
 - Sumeet Rohilla
-- Benedikt Krämer
+- [Benedikt Krämer](mailto:kraemer@picoquant.com)
 - Wietske Postma
 - Gregor Weiss
 - Nikolaus Naredi-Rainer
 
-Download an exemplary raw dataset from this link: [Triple Labelled Cell sample](https://www.picoquant.com/dl_software/sFLIM/sFLIM_data.zip)
+Download an exemplary raw dataset from these links: 
+- Pattern matching: [Triple Labelled Cell sample](https://www.picoquant.com/dl_software/sFLIM/sFLIM_data.zip)
+- FRET fitting example: [GFP-mRFP Labelled Cell sample](https://nc.picoquant.com/index.php/s/jxCmkHQWKrcZMXg)
+
 ## Disclaimer
 
 PicoQuant GmbH disclaims all warranties with regard to this software including all implied warranties of merchantability and fitness. In no case shall PicoQuant GmbH be liable for any direct, indirect or consequential damages or any material or immaterial damages whatsoever resulting from loss of data, time or profits; arising from use, inability to use, or performance of this software and associated documentation.
