@@ -1,0 +1,2 @@
+1. Added Support for MultiHarp PTU Zeiss LSM files (added zeiss_ScanRead in PTU_ScanRead
+2. Added Fitting for one component
