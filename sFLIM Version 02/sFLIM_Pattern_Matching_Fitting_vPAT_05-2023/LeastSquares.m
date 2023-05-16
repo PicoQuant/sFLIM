@@ -88,7 +88,28 @@ if nargin == 8
   handles.vParamDist_1 = varargin{7};
   handles.final_1 = varargin{8};
 end
-
+% figure(1);
+% xl = [399 460 550 640 699];% 699];
+%     yl = [[0 0 1]; [0 1 1]; [0 1 0]; [1 1 0]; [1 0 0]];%; [1 0 1]];
+%     lambda   = 399:3:699;
+%     spectrum = interp1(xl, yl, lambda);
+%     tmp_lims = [0 100];
+stim = handles.Y;
+size(stim);
+numpix = handles.numpix;
+ch_ind = 1;  
+%imag = sum(stim.*repmat(ch_ind, [numpix 1]),3);
+imag = stim;
+%size(imag(:,40));
+imag(:,40);
+imag2 = reshape(imag(:,40),[256,256])+50;
+size(imag2);
+%imag
+% % size(imag(:,1));
+% imag = imag(:,1);
+% size(imag);
+% imag = reshape(imag,256,256);
+%image(imag2)
 if dontOpen
    disp('Improper input arguments. Pass a property value pair');
    disp('whose name is "changeme_main" and value is the handle');
@@ -154,7 +175,8 @@ final_1 = handles.final_1; %results part 2
 
 MNW = maxNumCompThreads; %MNW: maximum number of workers (cores) on the PC
 %disp(MNW);
-Num_workers = MNW;
+
+Num_workers = 14; %Number of cores is set fix to 14
 
 nx = sqrt (numpix); %only for quadratic images with same number of pixel in x and y 
 ny = nx;
@@ -166,7 +188,8 @@ res = zeros(numpix, num_vpat, num_pat+1);
 split = floor(numpix/Num_workers);
 rest = numpix-split * Num_workers;
 
-
+ind = 0;
+if ind == 0 % switch fitting on / off
  spmd(Num_workers) % Single Program Multiple Data
    
   switch labindex 
@@ -388,6 +411,8 @@ rest = numpix-split * Num_workers;
             [m,i] = min(abs(dist(pix,:)));
             vParamDist(pix) = handles.vParam(i);
             final(pix,:) = squeeze(res(pix,i,:));
+            %pix13 = pix
+            %labindex13 = labindex
         end 
         
     otherwise %the last worker works in addition on the 'rest' of pixel
@@ -405,10 +430,16 @@ rest = numpix-split * Num_workers;
             [m,i] = min(abs(dist(pix,:)));
             vParamDist(pix) = handles.vParam(i);
             final(pix,:) = squeeze(res(pix,i,:));
+            %ima = Y(pix,:)
+            %sz = size(final)
+            %pixend = pix
+            %labindex14 = labindex
         end 
   end    
 
-end  
+ end 
+end
+
         
 
 % put the results of all workers together
@@ -433,13 +464,24 @@ for j=1:Num_workers-1 %for all workers but the last
 end
 %for the rest of pixel with the last worker
   vParamDist_2 = vParamDist{Num_workers}.';
-  vParamDist_f = cat(1,vParamDist_f,vParamDist_2((labindex-1)*split+1:labindex*split+rest,:));
+  vParamDist_f = cat(1,vParamDist_f,vParamDist_2((Num_workers-1)*split+1:Num_workers*split+rest,:));
   final_2 = final{Num_workers};
-  final_f = cat(1,final_f,final_2((labindex-1)*split+1:labindex*split+rest,:));
+
+%   size(final_f)
+%   size(final_2)
+%   labindex
+%   Num_workers
+
+  final_f2 = cat(1,final_f,final_2((Num_workers-1)*split+1:Num_workers*split+rest,:)); %add the calculation of cpu core number 14
+
+%   size(final_f2)
+
+% imag = reshape(final_f2(:,1),256,256);
+% image(imag)
 
 % transmit the result to the Results_4.m file
 setappdata(0,'vParamDist',vParamDist_f);
-setappdata(0,'final',final_f);
+setappdata(0,'final',final_f2);
 % disp AusgabeLS;
 % disp(size(vParamDist_f));
 % disp(size(final_f));
