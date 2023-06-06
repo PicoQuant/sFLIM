@@ -1378,9 +1378,10 @@ if numel(index_selected) >= 1
             num_vpat = size(handles.fam,1);
             %disp(num_vpat);
             match = 1; %with pattern family / fitting
-        else
-            match = 0;%without pattern family / fitting
+       
         end
+      else
+        match = 0;%without pattern family / fitting  
       end
   
 
@@ -1429,7 +1430,7 @@ if numel(index_selected) >= 1
             handles.k = k;
         end
     end
-        
+    sz = size(stim);    
     res = zeros(numpix, num_pat+1);
 
     mode = sum(params(1,1:2).*[1 2],2);
@@ -1451,6 +1452,10 @@ if numel(index_selected) >= 1
         tmp = reshape(tmp,[numpix nch*num_PIE]);
     end
    
+% imag = sum(stim.*repmat(ch_ind, [numpix 1]),3);
+% size(imag(:,1))
+% imag = reshape(imag,256,256);
+% image(imag)
 
         ch_ind = permute(repmat(ch_ind, [num_pat 1 1 1 num_vpat]),[5 1 2 3 4]);
         vParamDist = zeros(numpix,1);
