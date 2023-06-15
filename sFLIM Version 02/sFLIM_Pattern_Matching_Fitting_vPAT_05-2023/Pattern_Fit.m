@@ -1075,7 +1075,7 @@ for k = 1:par_num_PIE
 %         A1,tau1,A2,tau2,backgr
         C1 = Pattern_Faltung(params,irf,tau,t,ind);
         C1 = M(i).*C1/sum(C1,2);
-        C2 = cat(1,C2,C1);  
+        C2 = cat(1,C2,C1);         
     end
     pat = cat(2,pat,C2);
 end
@@ -1188,7 +1188,7 @@ if get(handles.varycheck, 'Value') == 1
 %          disp(pat);
          plot(taul,log10(pat(I,:)),'r');  
     end
-
+   
     hold off
 
     axis([0 floor(taul(end)) -3.5 0.1])
@@ -1196,16 +1196,17 @@ if get(handles.varycheck, 'Value') == 1
     ylabel('log (rel. frequency)','FontWeight','bold','FontSize',10,'FontAngle','italic');
 %     disp(taul);
 else
+ 
     axes(handles.axes5);
     hold on
     cla;
 
-    [~,I] = max(max(pat,[],2));
-    pat = pat/max(pat); %normalization
+   [intensity,I] = max(max(pat,[],2)); 
+    pat = pat./intensity; %normalization
     plot(taul,log10(pat(I,:)),'r');  
 
     hold off
-
+ 
     axis([0 floor(taul(end)) -3.5 0.1])
     xlabel('time / ns','FontWeight','bold','FontSize',10,'FontAngle','italic');
     ylabel('log (rel. frequency)','FontWeight','bold','FontSize',10,'FontAngle','italic');
