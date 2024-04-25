@@ -202,16 +202,20 @@ if ~isempty(head)
                 ind = (tmp3 == x);
                 tmp4 = double(tmp1(ind));
                 tmp5 = tmp2(ind);
-                
                 n = 0;
                 for pulse = 1:num_PIE
                     for ch = 1:anzch
                         n = n+1;
                         if (timegate(n,3)==0)
-                            tmp(x,ch,:,pulse) = mHist(tmp4(tmp5==nch(ch)),timegate(n,1):timegate(n,2));
+                            tst = mHist(tmp4(tmp5==nch(ch)),timegate(n,1):timegate(n,2));
                         else
-                            tmp(x,ch,:,pulse) = [mHist(tmp4(tmp5==nch(ch)),timegate(n,1):timegate(n,2)); mHist(tmp4(tmp5==nch(ch)),timegate(n,3):timegate(n,4))];
+                            tst = mHist(tmp4(tmp5==nch(ch)),timegate(n,3):timegate(n,4));
+                            if isempty(tst) 
+                                tst = 0;
+                            end
+                            tst = [mHist(tmp4(tmp5==nch(ch)),timegate(n,1):timegate(n,2)); tst];
                         end
+                        tmp(x,ch,:,pulse) = tst;
                     end
                 end
             end

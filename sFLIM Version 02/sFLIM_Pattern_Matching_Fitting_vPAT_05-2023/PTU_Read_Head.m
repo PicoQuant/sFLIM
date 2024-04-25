@@ -28,7 +28,6 @@ else
     
     
     TagIdent = deblank(char(fread(fid, 32, 'char')'));  % TagHead.Ident
-    TagIdent = TagIdent(TagIdent ~= '$');
     TagIdx   = fread(fid, 1, 'int32');                  % TagHead.Idx
     TagTyp   = fread(fid, 1, 'uint32');                 % TagHead.Typ
     
@@ -41,7 +40,7 @@ else
         end
         
         % check Typ of Header
-        
+
         switch TagTyp
             case tyEmpty8
                 fread(fid, 1, 'int64');
@@ -68,12 +67,13 @@ else
             case tyFloat8Array
                 TagInt = floor(fread(fid, 1, 'int64')/8);
                 TagArray = fread(fid, TagInt, 'double');
+                eval([EvalName '=TagArray;']);
             case tyTDateTime
                 TagFloat = fread(fid, 1, 'double');
                 eval([EvalName '=datestr(693960+TagFloat);']); 
             case tyAnsiString
                 TagInt = fread(fid, 1, 'int64');
-                TagString = deblank(char(fread(fid, TagInt, 'char'))');
+                TagString = deblank(fread(fid, TagInt, '*char')');
                 tmp = char(regexp(EvalName,'\([0-9]+\)','match'));
                 if ~isempty(tmp)
                     EvalName=strrep(EvalName,tmp,['{' tmp(2:end-1) '}']);
@@ -84,20 +84,19 @@ else
                 % remove the 0's (up to current (2012))
                 TagInt = fread(fid, 1, 'int64');
                 TagString = fread(fid, TagInt, '*char');
-                TagString = (TagString(TagString ~= 0))';
-                fprintf(1, '%s', TagString);
+                TagString = (TagString(TagString ~= 0))';                
                 if TagIdx > -1
                     EvalName = [TagIdent '(' int2str(TagIdx + 1) ',:)'];
-                end;
+                end
                 eval([EvalName '=TagString;']);
             case tyBinaryBlob
-                TagInt = floor(fread(fid, 1, 'int64')/8);
-                TagBytes = fread(fid, 1, 'uint64');
+                TagInt = fread(fid, 1, 'int64');
+                TagBytes = fread(fid, TagInt, 'uint8');
             otherwise
                 
-        end;
-        TagIdent = deblank(char(fread(fid, 32, 'char')'));  % TagHead.Ident
-        TagIdent = TagIdent(TagIdent ~= '$');
+        end
+        tmp = deblank(char(fread(fid, 32, 'char')'));  % TagHead.Ident
+        TagIdent = char(regexp(tmp,'[a-z A-Z 0-9 _]','match'))';
         TagIdx   = fread(fid, 1, 'int32');                  % TagHead.Idx
         TagTyp   = fread(fid, 1, 'uint32');                 % TagHead.Typ
     end
