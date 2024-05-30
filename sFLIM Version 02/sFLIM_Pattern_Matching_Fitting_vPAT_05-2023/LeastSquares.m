@@ -101,9 +101,9 @@ ch_ind = 1;
 %imag = sum(stim.*repmat(ch_ind, [numpix 1]),3);
 imag = stim;
 %size(imag(:,40));
-imag(:,40);
-imag2 = reshape(imag(:,40),[256,256])+50;
-size(imag2);
+%imag(:,40);
+%imag2 = reshape(imag(:,40),[256,256])+50;
+%size(imag2);
 %imag
 % % size(imag(:,1));
 % imag = imag(:,1);
